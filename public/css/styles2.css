@@ -1,0 +1,39 @@
+@font-face {
+    font-family: Lexend;
+    src: url("fuentes/Lexend_Deca/LexendDeca-VariableFont_wght.ttf");
+  }
+
+body{
+    font-family: Lexend;
+}
+button:focus, input:focus, a:focus, select:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    transition: 100ms;
+    border-color: #dadada !important;
+    box-shadow: 1px 1px 10px 1px #d4d4d4 !important;
+  }
+  
+  button.btn:hover, input.btn:hover, a.btn:hover {
+    transition: 100ms;
+    transform: scale(1.05);
+  }
+  
+  button.btn:focus, input.btn:focus, a.btn:focus {
+    transition: 100ms;
+    transform: scale(1);
+  }
+
+h5{
+  color: #900c3f;
+}
+
+h5:hover {
+
+  transition: 100ms;
+  color: #900c3f !important;
+
+}
