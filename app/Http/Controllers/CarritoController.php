@@ -41,17 +41,17 @@ class CarritoController extends Controller
 
             else {
                 $pedido->Precio = 0;
-                
+
                 foreach ($productosPedido as $producto) {
                     $pedido->Precio = $pedido->Precio + (($producto->Productos->Precio) * $producto->Cantidad);
                 }
-                
+
                 $pedido->save();
-                
+
                 $pedido->CantidadProductos = 0;
-                
+
                 foreach ($productosPedido as $producto) {
-    
+
                     $producto->Subtotal = ($producto->Productos->Precio) * $producto->Cantidad;
                     $pedido->CantidadProductos = $pedido->CantidadProductos + $producto->Cantidad;
                 }
@@ -59,13 +59,13 @@ class CarritoController extends Controller
 
                 return view('consumidor.carrito',['pedido' => $pedido, 'productosPedido' => $productosPedido],['metodos' => $metodosPago]);
             }
-        }     
+        }
     }
 
     public function show($id){
 
         $pedido = Historialpedidos::findOrFail($id);
-        
+
         if(Auth::user()->id === $pedido->id_usuario) {
 
             return view('consumidor.codigo',['pedido' => $pedido]);
@@ -93,7 +93,7 @@ class CarritoController extends Controller
         $pedido = Historialpedidos::where('id_usuario', $id_usuario)
                                     ->where('id_estado', 5)
                                     ->first();
-                                    
+
         $pedidoProducto = Pedidos::where('id_producto', $id)
                                     ->where('id_pedido', $pedido->id)
                                     ->first();
@@ -101,7 +101,7 @@ class CarritoController extends Controller
             $pedidoProducto = New Pedidos;
             $pedidoProducto->id_pedido = $pedido->id;
             $pedidoProducto->id_producto = $id;
-            
+
             if ( isset($_GET['cantidadProducto']) ) {
 
                 if  ( ($_GET['cantidadProducto'] != null) and ($_GET['cantidadProducto'] > 0) and ($_GET['cantidadProducto'] <= 10)) {
@@ -112,7 +112,7 @@ class CarritoController extends Controller
                     $pedidoProducto->Cantidad = 1;
                 }
             }
-        
+
             else {
                 $pedidoProducto->Cantidad = 1;
             }
@@ -129,7 +129,7 @@ class CarritoController extends Controller
             else {
                 $cantidadProducto = 1;
             }
-            
+
             if ($pedidoProducto->Cantidad >= 10) {
                 session()->flash('productoCarrito', 'Ya tienes 10 productos de esta referencia en tu carrito');
             }
@@ -141,9 +141,9 @@ class CarritoController extends Controller
                 }
 
                 else {
-                    $pedidoProducto->Cantidad = $pedidoProducto->Cantidad + $cantidadProducto; 
+                    $pedidoProducto->Cantidad = $pedidoProducto->Cantidad + $cantidadProducto;
                 }
-                
+
             }
         }
 
@@ -152,7 +152,7 @@ class CarritoController extends Controller
                 session()->flash('productoCarrito', 'Ya tienes 10 productos de esta referencia en tu carrito');
             }
             else{
-                
+
                 $pedidoProducto->Cantidad = $pedidoProducto->Cantidad + 1;
             }
         }
@@ -172,12 +172,12 @@ class CarritoController extends Controller
         $pedido = Historialpedidos::where('id_usuario', $id_usuario)
                                     ->where('id_estado', 5)
                                     ->first();
-                                    
+
         $pedidoProducto = Pedidos::where('id_producto', $id)
                                     ->where('id_pedido', $pedido->id)
                                     ->first();
 
-        $pedidoProducto->Cantidad = $_GET['cantidadProducto'];    
+        $pedidoProducto->Cantidad = $_GET['cantidadProducto'];
 
         if ($pedidoProducto->Cantidad > 10) {
             return to_route('carrito.index');
@@ -189,7 +189,7 @@ class CarritoController extends Controller
         else {
             $pedidoProducto->save();
         }
-        
+
         return redirect()->back();
     }
 
@@ -199,7 +199,7 @@ class CarritoController extends Controller
         $pedido = Historialpedidos::where('id_usuario', $id_usuario)
                                     ->where('id_estado', 5)
                                     ->first();
-                                    
+
         Pedidos::where('id_producto', $id)
                     ->where('id_pedido', $pedido->id)
                     ->delete();
@@ -214,11 +214,11 @@ class CarritoController extends Controller
         $productosPedido = Pedidos::where('id_pedido', $pedido->id)->get();
 
         $pedido->Precio = 0;
-                
+
         foreach ($productosPedido as $producto) {
         $pedido->Precio = $pedido->Precio + (($producto->Productos->Precio) * $producto->Cantidad);
         }
-                
+
         $pedido->id_pago = $request->input('metodosPago');
 
         if ($pedido->id_pago == 1 ) {
@@ -234,17 +234,17 @@ class CarritoController extends Controller
         QrCode::size(270)->generate($ruta, '../public/storage/qrcodes/'.md5($pedido->id_usuario.'-'.$pedido->id).'.svg');
 
         $pedido->save();
-                
+
         $pedido->CantidadProductos = 0;
-                
+
         foreach ($productosPedido as $producto) {
-    
+
             $producto->Subtotal = ($producto->Productos->Precio) * $producto->Cantidad;
             $pedido->CantidadProductos = $pedido->CantidadProductos + $producto->Cantidad;
         }
 
         if ($pedido->id_pago != 1) {
-            Mail::to($pedido->Usuario->Correo)->queue(new Factura( $pedido, $productosPedido ));
+            //Mail::to($pedido->Usuario->Correo)->queue(new Factura( $pedido, $productosPedido ));
         }
 
         return to_route('codigoQr',$id);

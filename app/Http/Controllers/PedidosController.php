@@ -14,13 +14,13 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PedidosController extends Controller
-{   
+{
     public function index(){
 
         $hoy = hoy();
         $estados = Estadopedido::whereNot('id', 5)->get();
         $preparaciones = Preparacionpedido::all();
-            
+
             $pedidos = Historialpedidos::whereNot('id_estado',5)
                                         ->whereDate('Fecha',$hoy)
                                         ->orderBy('Fecha','DESC')
@@ -28,18 +28,18 @@ class PedidosController extends Controller
             foreach ($pedidos as $pedido) {
 
                 $pedido ->Fecha = Carbon::parse($pedido -> Fecha ) -> toTimeString();
-                
+
             }
 
         return view('vendedor.gestionarPedidosDia', ['pedidos' => $pedidos, 'estados' => $estados], ['preparaciones' => $preparaciones]);
     }
 
     public function indexEstado($id_estado) {
-        
+
         $hoy = hoy();
         $estados = Estadopedido::whereNot('id', 5)->get();
         $preparaciones = Preparacionpedido::all();
-            
+
             $pedidos = Historialpedidos::where('id_estado',$id_estado)
                                         ->whereDate('Fecha',$hoy)
                                         ->orderBy('Fecha','DESC')
@@ -48,28 +48,28 @@ class PedidosController extends Controller
             foreach ($pedidos as $pedido) {
 
                 $pedido ->Fecha = Carbon::parse($pedido -> Fecha ) -> toTimeString();
-                
+
             }
         return view('vendedor.gestionarPedidosDia', ['pedidos' => $pedidos, 'estados' => $estados], ['preparaciones' => $preparaciones]);
     }
 
     public function indexPreparacion($id_preparacion) {
-        
+
         $hoy = hoy();
         $estados = Estadopedido::whereNot('id', 5)->get();
         $preparaciones = Preparacionpedido::all();
-            
+
             $pedidos = Historialpedidos::where('id_preparacion',$id_preparacion)
                                         ->whereNot('id_estado',1)
                                         ->whereNot('id_estado',5)
                                         ->whereDate('Fecha',$hoy)
                                         ->orderBy('Fecha','DESC')
                                         ->paginate(15);
-            
+
             foreach ($pedidos as $pedido) {
 
                 $pedido ->Fecha = Carbon::parse($pedido -> Fecha ) -> toTimeString();
-                
+
             }
         return view('vendedor.gestionarPedidosDia', ['pedidos' => $pedidos, 'estados' => $estados], ['preparaciones' => $preparaciones]);
     }
@@ -80,10 +80,10 @@ class PedidosController extends Controller
                                     ->paginate(15);
         $estados = Estadopedido::whereNot('id', 5)->get();
         $metodos = Metodopago::all();
-                                
+
         return view('vendedor.gestionarPedidos', ['pedidos' => $pedidos, 'estados' => $estados],['metodos' => $metodos]);
-    }       
-    
+    }
+
     public function estado($id_estado){
 
         $pedidos = Historialpedidos::where('id_estado',$id_estado)->orderBy('Fecha','DESC')->paginate(15);
@@ -118,7 +118,7 @@ class PedidosController extends Controller
 
         return view('vendedor.gestionarPedidosDia', ['pedidos' => $pedidos, 'estados' => $estados], ['preparaciones' => $preparaciones]);
     }
-    
+
     public function searchHistorial(Request $request){
 
         $id = trim($request->get('buscarPedidoHistorial'));
@@ -143,7 +143,7 @@ class PedidosController extends Controller
         if( $request->input('preparacion') != $pedido->id_preparacion ) {
 
             if ( $request->input('preparacion') == 2 ) {
-                Mail::to($pedido->Usuario->Correo)->queue(new ProductoListo( $pedido ));
+                //Mail::to($pedido->Usuario->Correo)->queue(new ProductoListo( $pedido ));
             }
 
         }
@@ -151,7 +151,7 @@ class PedidosController extends Controller
         if ($request->input('preparacion') != null) {
             $pedido->id_preparacion = $request->input('preparacion');
         }
-        
+
         $pedido->save();
 
         session()->flash('pedidoEditado', 'Pedido modificado satisfactoriamente');
@@ -160,7 +160,7 @@ class PedidosController extends Controller
 
     //PEDIDOS DEL USUARIO
     public function pedidosUsuario () {
-        
+
         $id_usuario = Auth::user()->id;
         $pedidos = Historialpedidos::whereNot('id_estado',5)
                                     ->where('id_usuario', $id_usuario)
@@ -180,18 +180,18 @@ class PedidosController extends Controller
         }
 
         else{
-            
+
             $pedido->id_estado = 4;
 
             $pedido->save();
-    
+
             return redirect()->back();
         }
-        
+
     }
 
     public function pedidoCliente($id){
-        
+
         $hoy = hoy();
         $estados = Estadopedido::whereNot('id', 5)->get();
         $pedido = Historialpedidos::find($id);

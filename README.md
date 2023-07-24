@@ -1,64 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# SENA FOOD SITE
+Hi, mi name is **Deibyd** and this is my project to manage clients, vendors, orders and products of a restaurant in an educational institution.
+## Prerequisite
+You have to install these tools
+- [Composer](https://getcomposer.org/)
+- [XAMPP](https://www.apachefriends.org/es/index.html)
+- [PHP > 8.1.0](https://www.php.net/)
+- [NodeJS](https://nodejs.org/en)
+- [Git](https://git-scm.com/)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Features and Functionalities
+- As a guest: You can see a list of all products of the restaurant
+- As a client: You can do the same as a guest but also you can make orders and manage them, aditionally you're able to manage your profile and report bugs to the administrators.
+- As a vendor: You can manage the products, your profile and the orders of all users. You can report bugs also.
+- As a administrator: You can manage products, users and bug reports.
 
-## About Laravel
+## Tech Stack
+- [MySQL](https://www.mysql.com/)
+- [Laravel 9](https://laravel.com/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Apache](https://httpd.apache.org/)
+- [PHP](https://www.php.net/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Data model
+![Data model](docs/dataModel.png)
+## Installation and running
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**1. Clone this repo by running the following commands**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+`git clone https://github.com/DeibydBarragan/sena-food-site.git`
 
-## Learning Laravel
+**2. Then, go to the root folder and run the following to create a .env file**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+`cd sena-food-site`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`copy .env.example .env`
 
-## Laravel Sponsors
+**3. Configure the .env file in with these values or with your own values**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=foodsite
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-### Premium Partners
+**4. If you want the app to send emails set these values with sendgrid or mailtrap**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+MAIL_MAILER=smtp
+MAIL_HOST={YOUR HOST}
+MAIL_PORT={YOUR PORT}
+MAIL_USERNAME={YOUR USERNAME}
+MAIL_PASSWORD={YOUR PASSWORD}
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
-## Contributing
+**5. Create a MySql database and run the foodsite.sql that is in the root folder to create example data (remember to name the database the same as in the .env file)**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**6. Install the dependencies**
 
-## Code of Conduct
+`composer install`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`npm install`
 
-## Security Vulnerabilities
+**7. Then, run the following commands**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+`php artisan key:generate`
 
-## License
+`php artisan cache:clear`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`php artisan config:clear`
+
+`php artisan storage:link`
+
+**8. Finally, run the following**
+
+`php artisan serve`
+
+now you can use the app in http://localhost:8000
+
+## Build and run the app with Docker
+To execute the app (with the MySQL database, and a NGINX server) in a docker container:
+
+1. Make sure you have docker installed on your system
+2. If you runned `php artisan storage:link` go to the **public** folder and delete the storage file
+3. Configure the .env file with these values
+   ```
+   **3. Configure the .env file in with these values or with your own values**
+
+```
+    DB_CONNECTION=mysql
+    DB_HOST=db
+    DB_PORT=3306
+    DB_DATABASE=foodsite
+    DB_USERNAME=homestead
+    DB_PASSWORD=secret
+
+```
+4. Open the root directory in the terminal and run the following
+
+   ```shell
+   docker-compose build
+5. Then execute the following command
+   
+   ```shell
+   docker-compose up -d
+
+6. Then run the following commands:
+
+`docker-compose exec app composer install`
+
+`docker-compose exec app php artisan key:generate`
+
+`docker-compose exec app php artisan cache:clear`
+
+`docker-compose exec app php artisan config:clear`
+
+`docker-compose exec app php artisan storage:link`
+
+7. Go to http://localhost:8080 and run the foodsite.sql that is in the root folder in the foodsite database to create example data
+
+Now you can use the app in http://localhost:80
+
+## Example videos
+
+### As a guest
+
+### As a client
+
+### As a vendor
+You can use these credentials:
+
+email: vendor@vendor.foodsite
+password: 123
+
+### As an administrator
+You can use these credentials:
+
+email: admin@admin.foodsite
+password: 123

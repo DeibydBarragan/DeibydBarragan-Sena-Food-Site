@@ -23,7 +23,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'show')->name('login')->middleware('guest');
 
     Route::post('/login', 'validateLogin')->name('validar');
-    
+
     Route::post('/logout', 'logout')->name('logout');
 
 });

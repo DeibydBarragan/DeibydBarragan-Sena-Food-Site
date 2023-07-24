@@ -4,7 +4,7 @@ use Carbon\Carbon;
 
     //FUNCION HOY PARA PEDIDOSCONTROLLER
     function hoy(){
-        $hoy = Carbon::today()->toDateString();
+        $hoy = Carbon::yesterday()->toDateString();
 
         return $hoy;
     }
