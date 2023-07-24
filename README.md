@@ -89,8 +89,6 @@ To execute the app (with the MySQL database, and a NGINX server) in a docker con
 1. Make sure you have docker installed on your system
 2. If you runned `php artisan storage:link` go to the **public** folder and delete the storage file
 3. Configure the .env file with these values
-   ```
-   **3. Configure the .env file in with these values or with your own values**
 
 ```
     DB_CONNECTION=mysql
@@ -129,17 +127,31 @@ Now you can use the app in http://localhost:80
 ## Example videos
 
 ### As a guest
-
+[Guest](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/ec7fc4b0-3bb5-4dd5-857e-a48dd916d594)
+####Mobile
+[Guest](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/dcf243ca-7fe1-491a-975c-210701a67384)
 ### As a client
-
+[Client](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/4846bd8d-e2ab-4fa3-9f99-ce3f4dc2fd3b)
+####Mobile
+[Client](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/aa5a0768-5fa1-48e4-9df8-6078b817d5ef)
 ### As a vendor
 You can use these credentials:
 
 email: vendor@vendor.foodsite
 password: 123
 
+[Vendor](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/dea45103-8bfc-4d82-9563-64bd3b0d167f)
+
+####Mobile
+[Vendor](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/d03b831d-3ec7-4d08-901f-8d11b52ecc35)
+
 ### As an administrator
 You can use these credentials:
 
 email: admin@admin.foodsite
 password: 123
+
+[Admin](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/941d797c-b174-4279-8d1b-57baa1748c57)
+
+####Mobile
+[Admin](https://github.com/DeibydBarragan/sena-food-site/assets/116578796/0f630b70-66c6-4c22-af63-2e7859121355)
