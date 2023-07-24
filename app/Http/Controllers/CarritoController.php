@@ -244,7 +244,7 @@ class CarritoController extends Controller
         }
 
         if ($pedido->id_pago != 1) {
-            //Mail::to($pedido->Usuario->Correo)->queue(new Factura( $pedido, $productosPedido ));
+            Mail::to($pedido->Usuario->Correo)->queue(new Factura( $pedido, $productosPedido ));
         }
 
         return to_route('codigoQr',$id);

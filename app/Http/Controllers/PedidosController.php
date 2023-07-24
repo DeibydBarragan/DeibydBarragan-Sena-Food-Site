@@ -143,7 +143,7 @@ class PedidosController extends Controller
         if( $request->input('preparacion') != $pedido->id_preparacion ) {
 
             if ( $request->input('preparacion') == 2 ) {
-                //Mail::to($pedido->Usuario->Correo)->queue(new ProductoListo( $pedido ));
+                Mail::to($pedido->Usuario->Correo)->queue(new ProductoListo( $pedido ));
             }
 
         }
