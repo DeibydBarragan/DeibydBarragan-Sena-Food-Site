@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2022 a las 21:59:25
--- Versión del servidor: 5.7.33
--- Versión de PHP: 8.1.9
+-- Tiempo de generación: 24-07-2023 a las 05:33:34
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
   `Categoria` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -53,7 +53,7 @@ INSERT INTO `categoria` (`id`, `Categoria`) VALUES
 CREATE TABLE `centroaprendizaje` (
   `id` int(11) NOT NULL,
   `Centro` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `centroaprendizaje`
@@ -74,18 +74,18 @@ CREATE TABLE `comentario` (
   `id` int(11) NOT NULL,
   `Tipo` varchar(15) NOT NULL,
   `Comentario` varchar(200) NOT NULL,
-  `fechaHora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaHora` timestamp NOT NULL DEFAULT current_timestamp(),
   `Imagen` varchar(100) DEFAULT NULL,
-  `id_estado` int(1) NOT NULL DEFAULT '1',
+  `id_estado` int(1) NOT NULL DEFAULT 1,
   `id_usuario` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `comentario`
 --
 
 INSERT INTO `comentario` (`id`, `Tipo`, `Comentario`, `fechaHora`, `Imagen`, `id_estado`, `id_usuario`) VALUES
-(1, 'doloremque', 'Id ipsam sequi et et. Asperiores quo est sed officiis. Maiores est quaerat dolorum placeat et omnis omnis.', '2022-09-13 19:03:09', NULL, 2, 86),
+(1, 'doloremque', 'Id ipsam sequi et et. Asperiores quo est sed officiis. Maiores est quaerat dolorum placeat et omnis omnis.', '2022-09-13 19:03:09', NULL, 3, 86),
 (2, 'impedit', 'Et ratione totam sed molestiae error. Quisquam est odit laudantium voluptatem et. Quas quisquam iste ut sit quis. Voluptatum soluta sint incidunt vero repellat repudiandae.', '2022-09-13 19:03:09', NULL, 3, 79),
 (3, 'cumque', 'Dolor ratione labore ut recusandae ut. Eaque laboriosam necessitatibus rem quas molestiae labore ut. Eaque voluptatem dolor eaque ducimus.', '2022-09-13 19:03:09', NULL, 2, 76),
 (4, 'accusantium', 'Voluptas ratione voluptatem et voluptates nam. Minima labore neque sunt. Non voluptas necessitatibus eveniet non corrupti error ea. Amet aut quis at quae voluptatibus.', '2022-09-13 19:03:09', NULL, 3, 64),
@@ -195,7 +195,7 @@ INSERT INTO `comentario` (`id`, `Tipo`, `Comentario`, `fechaHora`, `Imagen`, `id
 CREATE TABLE `disponibilidad` (
   `id` int(1) NOT NULL,
   `Disponibilidad` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `disponibilidad`
@@ -215,7 +215,7 @@ CREATE TABLE `estadopedido` (
   `id` int(11) NOT NULL,
   `Estado` varchar(10) NOT NULL,
   `Color` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `estadopedido`
@@ -238,7 +238,7 @@ CREATE TABLE `estadosoporte` (
   `id` int(1) NOT NULL,
   `Estado` varchar(20) NOT NULL,
   `Color` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `estadosoporte`
@@ -257,13 +257,13 @@ INSERT INTO `estadosoporte` (`id`, `Estado`, `Color`) VALUES
 
 CREATE TABLE `historialpedidos` (
   `id` int(11) NOT NULL,
-  `Fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_usuario` int(30) NOT NULL,
-  `id_estado` int(1) NOT NULL DEFAULT '5',
-  `id_preparacion` int(1) NOT NULL DEFAULT '1',
+  `id_estado` int(1) NOT NULL DEFAULT 5,
+  `id_preparacion` int(1) NOT NULL DEFAULT 1,
   `id_pago` int(1) DEFAULT NULL,
   `Precio` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `historialpedidos`
@@ -430,7 +430,7 @@ CREATE TABLE `metodopago` (
   `Metodo` varchar(30) NOT NULL,
   `Descripcion` varchar(600) NOT NULL,
   `Foto` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `metodopago`
@@ -450,9 +450,9 @@ INSERT INTO `metodopago` (`id`, `Metodo`, `Descripcion`, `Foto`) VALUES
 CREATE TABLE `pedidos` (
   `id_pedido` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
-  `Cantidad` int(4) NOT NULL DEFAULT '1',
+  `Cantidad` int(4) NOT NULL DEFAULT 1,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `pedidos`
@@ -1470,7 +1470,7 @@ CREATE TABLE `preparacionpedido` (
   `id` int(11) NOT NULL,
   `Preparacion` varchar(15) NOT NULL,
   `Color` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `preparacionpedido`
@@ -1494,7 +1494,7 @@ CREATE TABLE `producto` (
   `Descripcion` varchar(200) NOT NULL,
   `Disponibilidad` int(1) NOT NULL,
   `Foto` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
@@ -1576,7 +1576,7 @@ CREATE TABLE `tipousuario` (
   `id` int(11) NOT NULL,
   `Rol` varchar(40) NOT NULL,
   `Color` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tipousuario`
@@ -1602,16 +1602,15 @@ CREATE TABLE `usuario` (
   `id_centro` int(1) NOT NULL,
   `Foto` varchar(100) DEFAULT NULL,
   `id_tipousuario` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `Nombre`, `Apellidos`, `Correo`, `Contrasena`, `id_centro`, `Foto`, `id_tipousuario`) VALUES
-(1, 'Deibyd', 'Barragán', 'deibyd.barragn@misena.edu.co', 'abd46488fe723226065abd180a344573', 1, 'public/usuarios/QjyBnqHEOUwVohDVXjow3i1kCwSqiQp5pJYvVY4j.jpg', 1),
-(2, 'Camilo', 'Aguilera', 'ccaguilera6@misena.edu.co', '70b5d2b7b0502af5fcbc9a4b8cb49c86', 1, 'public/usuarios/ZQ6m3OOYlKgzrwfx1SBicqdtNXEdOhuJ8Wu6Ij5b.jpg', 2),
-(3, 'Edwin', 'Narvaez', 'esnarvaez194@misena.edu.co', '849d44cdc6edfa5808f759cab480cead', 1, NULL, 3),
+(1, 'admin', 'admin', 'admin@admin.foodsite', '202cb962ac59075b964b07152d234b70', 1, NULL, 1),
+(2, 'vendor', 'vendor', 'vendor@vendor.foodsite', '202cb962ac59075b964b07152d234b70', 1, NULL, 2),
 (4, 'Damion Williamson', 'Berniece Johnston', 'isabel.jerde@hotmail.com', '8441605f0b19d978b282704782dc9c1b', 3, NULL, 3),
 (5, 'Elnora Keebler', 'Prof. Kristy Bernier DVM', 'wintheiser.yvonne@yahoo.com', 'b0fbb1aff362d6d4dc46c2eccbd8c3b5', 3, NULL, 3),
 (6, 'Kaleigh Rath', 'Tyrique Kuvalis', 'kari.crona@corwin.net', '5a39c31de2bdd82cbb67a3934542ebf6', 2, NULL, 2),
@@ -1852,7 +1851,7 @@ ALTER TABLE `estadosoporte`
 -- AUTO_INCREMENT de la tabla `historialpedidos`
 --
 ALTER TABLE `historialpedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT de la tabla `metodopago`
@@ -1864,7 +1863,7 @@ ALTER TABLE `metodopago`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
 
 --
 -- AUTO_INCREMENT de la tabla `preparacionpedido`
@@ -1888,7 +1887,7 @@ ALTER TABLE `tipousuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- Restricciones para tablas volcadas
