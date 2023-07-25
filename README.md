@@ -1,5 +1,4 @@
 # SENA FOOD SITE
-Hi, mi name is **Deibyd** and this is my project to manage clients, vendors, orders and products of a restaurant in an educational institution.
 ## Prerequisite
 You have to install these tools
 - [Composer](https://getcomposer.org/)
